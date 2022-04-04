@@ -1,10 +1,14 @@
 import React, {useState, useEffect } from 'react';
+import {BrowserRouter as Router,Switch, Route} from "react-router-dom";
 // import { uuid } from 'uuidv4';
 import { v4 as uuid } from 'uuid';
 import './App.css';
 import Header from "./components/Header"
 import Addcontact from "./components/AddContact"
 import ContsctList from './components/ContactList'
+import ContactDetails from './components/ContactDetails';
+
+
 
 function App() {
   const LOCAL_STORAGE_KEY ="contacts";
@@ -34,9 +38,43 @@ const removeContactHandler=(id) =>{
   },[contacts]);
   return (
     <div className='ui container'>
-     <Header/>
-     <Addcontact addcontactHamdler={addcontactHamdler}/>
-     <ContsctList contacts={contacts} getContactId={removeContactHandler}/>
+       <Router>
+           <Header/>
+            <Switch>
+            <Route 
+            path='/' 
+            exact 
+            render={(props)=>(
+            <ContsctList 
+            {...props}
+            contacts={contacts}
+            getContactId={removeContactHandler} 
+            />
+            )}
+            
+            /> 
+            <Route path='/add' 
+            render ={(props)=>(
+             <Addcontact 
+             {...props}
+              addcontactHamdler={addcontactHamdler}/>
+            )}
+            />
+            <Route path="/contact/:id" component ={ContactDetails}/>
+            
+            </Switch>
+            {/* <Addcontact addcontactHamdler={addcontactHamdler}/>
+            <ContsctList contacts={contacts} getContactId={removeContactHandler}/> 
+            
+            component ={()=>(
+            <ContsctList 
+             contacts={contacts} 
+             getContactId={removeContactHandler}
+            />
+            )}*/}
+      </Router>
+     
+     
 
       
     </div>

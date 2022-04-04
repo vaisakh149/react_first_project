@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
 
  class AddContact extends Component {
    state ={
@@ -15,6 +16,8 @@ import React, { Component } from 'react'
      this.props.addcontactHamdler(this.state);
     //  to remve the emal and name we need to change the state
     this.setState({name:"",email:""});
+    this.props.history.push('/');
+
    }
   render() {
     return (
